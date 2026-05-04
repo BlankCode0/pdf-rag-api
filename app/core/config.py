@@ -1,4 +1,9 @@
+import os
 from pydantic_settings import BaseSettings
+
+# Set this before anything imports tokenizers
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
 
 class Settings(BaseSettings):
     groq_api_key: str
@@ -11,5 +16,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        extra = "ignore"    # ← this ignores any extra env vars not in Settings
+
 
 settings = Settings()

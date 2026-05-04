@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  pdf-rag-api:
+    build: .
+    container_name: pdf-rag-api
+    ports:
+      - "8000:8000"         # host:container
+    env_file:
+      - .env                # loads your .env file into the container
+    volumes:
+      - ./storage:/app/storage   # persist FAISS indexes outside container
+      - ./uploads:/app/uploads   # persist uploads folder
+    restart: unless-stopped
